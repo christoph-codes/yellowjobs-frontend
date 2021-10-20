@@ -9,6 +9,7 @@ import {
   CloseButton,
   IconButton,
   chakra,
+  SimpleGrid,
   useDisclosure,
   useColorModeValue,
   Text,
@@ -84,16 +85,35 @@ export default function Headers() {
         ref={ref}
         shadow={y > height ? 'sm' : undefined}
         transition="box-shadow 0.2s"
-        borderTop="6px solid"
-        borderTopColor="yellow.400"
+        shadow="lg"
         w="full"
         py="4"
         overflowY="hidden"
         bg="white"
       >
         <Container>
-          <Flex w="full" h="full" align="center" justify="space-between">
-            <Flex align="center">
+          <SimpleGrid justifyItems="stretch" columns="3">
+            <HStack
+              spacing={4}
+              align="center"
+              justifySelf="start"
+              display={{ base: 'none', md: 'flex' }}
+            >
+              <Box _hover={{ color: 'gray.500' }}>
+                <NextLink href="/about">About Us</NextLink>
+              </Box>
+              <Button
+                variant="ghost"
+                _hover={{ bg: 'white', textDecoration: 'underline' }}
+                onClick={() =>
+                  window.open('https://www.buymeacoffee.com/yellowjobs')
+                }
+              >
+                <Image w="32" src="/buy-me-a-coffee.svg" />
+              </Button>
+            </HStack>
+
+            <Flex align="center" justifySelf={{ base: 'start', md: 'center' }}>
               <NextLink href="/" aria-label="YellowJobs Logo">
                 <Link>
                   <HStack>
@@ -108,28 +128,12 @@ export default function Headers() {
               </NextLink>
             </Flex>
 
-            <HStack
-              spacing={4}
-              justify="flex-end"
-              w="full"
-              maxW="824px"
-              align="center"
-              display={{ base: 'none', md: 'flex' }}
-            >
-              <Box _hover={{ color: 'gray.500' }}>
-                <NextLink href="/about">About Us</NextLink>
-              </Box>
-              <Button
-                variant="ghost"
-                _hover={{ bg: 'white', textDecoration: 'underline' }}
-                onClick={() => window.open('https://www.buymeacoffee.com/yellowjobs')}
-              >
-                <Image w="32" src="/buy-me-a-coffee.svg" />
-              </Button>
-
+            <Flex justifySelf="end">
               <NavbarAuth />
-            </HStack>
+            </Flex>
+
             <IconButton
+              justifySelf="end"
               display={{ base: 'flex', md: 'none' }}
               aria-label="Open menu"
               fontSize="20px"
@@ -138,7 +142,7 @@ export default function Headers() {
               icon={<AiOutlineMenu />}
               onClick={mobileNav.onOpen}
             />
-          </Flex>
+          </SimpleGrid>
           {MobileNavContent}
         </Container>
       </chakra.header>
